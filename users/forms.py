@@ -14,6 +14,5 @@ class DoctorCrteationForm(forms.ModelForm):
 class UserCreationForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = '__all__'
-        
+        fields = ['last_name', 'first_name', 'username', 'password', 'email', 'phone_number', 'photo', 'country', 'city', 'address']
 

@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 
 class Administrator(AbstractUser):
-    photo = models.ImageField("Photo", blank=False, null=True, upload_to="media/admin/")
+    photo = models.ImageField("Photo", blank=False, null=True, upload_to="admin")
     telegram_username = models.CharField("Telegram username", max_length=25, blank=True)
     phone_number = PhoneNumberField(blank=True)
     country = models.CharField("Country", max_length=100, blank=True)
@@ -28,7 +28,7 @@ class Administrator(AbstractUser):
         verbose_name_plural = 'Administrators'
 
 class Doctor(AbstractUser):
-    photo = models.ImageField("Photo", blank=False, null=True, upload_to="media/doctor/")
+    photo = models.ImageField("Photo", blank=False, null=True, upload_to="doctor")
     telegram_username = models.CharField("Telegram username", max_length=25, blank=True)
     phone_number = PhoneNumberField(blank=True)
     country = models.CharField("Country", max_length=100, blank=True)
@@ -57,7 +57,7 @@ class Doctor(AbstractUser):
     
 
 class User(AbstractUser):
-    photo = models.ImageField("Photo", blank=False, null=True, upload_to="media/user/")
+    photo = models.ImageField("Photo", blank=False, null=True, upload_to="user")
     telegram_username = models.CharField("Telegram username", max_length=25, blank=True)
     phone_number = PhoneNumberField(blank=True)
     country = models.CharField("Country", max_length=100, blank=True)
