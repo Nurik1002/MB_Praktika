@@ -26,7 +26,7 @@ def userCreateView(request):
         phone = request.POST.get("phone")
         state = request.POST.get("state")
 
-        user = CustomUser.objects.create(uname, email,  password)
+        user = CustomUser.objects.create_user(uname, email,  password)
         user.first_name = fname
         user.last_name = lname
         user.country = country
