@@ -11,8 +11,8 @@ class CustomUser(AbstractUser):
 
     user_type = models.CharField(max_length=15, choices=USER_TYPES)
     country = models.CharField("Country", max_length=100, blank=True)
+    state = models.TextField("State",max_length=100,  blank=True)
     city = models.CharField("City", max_length=100, blank=True)
-    address = models.TextField("Address", blank=True)
     phone_number = PhoneNumberField(blank=True)
     
     groups = models.ManyToManyField(
