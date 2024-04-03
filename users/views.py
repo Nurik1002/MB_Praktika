@@ -6,7 +6,7 @@ from django.contrib import messages
 
 
 from .models import CustomUser, Administrator,  Doctor
-
+from .forms import EditCustomUser
 
     
 def homeView(request):
@@ -18,7 +18,6 @@ def userCreateView(request):
         fname = request.POST.get("fname")
         lname = request.POST.get("lname")
         email = request.POST.get("email")
-        photo = request.POST.get("photo")
         country = request.POST.get("country")
         city = request.POST.get("city")
         uname = request.POST.get("username")
@@ -33,7 +32,6 @@ def userCreateView(request):
         user.city = city
         user.state = state
         user.phone_number = phone
-        user.photo = photo
         user.save()
 
         return redirect('login')
@@ -55,7 +53,7 @@ def userLoginView(request):
         
         else:
             return HttpResponse("User not found!")
-    return render(request, "login/login.html", {})
+    return render(request, "login/user_login.html", {})
 
 
 
