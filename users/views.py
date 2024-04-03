@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
-from .models import CustomUser, Administrator, User, Doctor
+from .models import CustomUser, Administrator,  Doctor
 
 
     
@@ -24,25 +24,19 @@ def userCreateView(request):
         uname = request.POST.get("username")
         password = request.POST.get("password")
         phone = request.POST.get("phone")
-        address = request.POST.get("address")
+        state = request.POST.get("state")
 
-        user = CustomUser.objects.create(username = uname, email = email, password=password)
+        user = CustomUser.objects.create(username = uname, email=email,  password=password)
         user.first_name = fname
         user.last_name = lname
         user.country = country
         user.city = city
-        user.address = address
+        user.state = state
         user.phone_number = phone
-        user.user_type = user.USER_TYPES[2]
-        
-
-        user1 = User.objects.create(user=user)
-        user1.photo = photo
-
+        user.photo = photo
         user.save()
-        user1.save()
-    
-        return redirect("home") 
+
+        return redirect('login')
     return render(request, "registration/create_user.html", {})
 
 
@@ -50,6 +44,8 @@ def userLoginView(request):
     if request.method == "POST":
         name = request.POST.get('uname')
         password = request.POST.get('password')
+        print(f"Username  : {name}")
+        print(f"Password  : {password}")
         user = authenticate(request, username=name, password=password)
 
         if user is not None:
@@ -58,7 +54,7 @@ def userLoginView(request):
             return redirect('home')
         
         else:
-            return HttpResponse("Foydalanuvchi topilmadi")
+            return HttpResponse("User not found!")
     return render(request, "login/user_login.html", {})
 
 
