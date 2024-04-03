@@ -55,7 +55,7 @@ def userLoginView(request):
         
         else:
             return HttpResponse("User not found!")
-    return render(request, "login/user_login.html", {})
+    return render(request, "login/login.html", {})
 
 
 
@@ -63,3 +63,8 @@ def userLoginView(request):
 def Logout(request):
     logout(request)
     return redirect("home")
+
+@login_required(login_url='login')
+def userProfile(request):
+    context = {}
+    return render(request, "user_profile.html", context=context)

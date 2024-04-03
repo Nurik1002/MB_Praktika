@@ -7,7 +7,7 @@ class CustomUser(AbstractUser):
     state = models.TextField("State",max_length=100,  blank=True)
     city = models.CharField("City", max_length=100, blank=True)
     phone_number = PhoneNumberField(blank=True)
-    photo = models.ImageField(upload_to="user/")
+    photo = models.ImageField(upload_to="user")
    
 
     def __str__(self) -> str:
@@ -21,7 +21,6 @@ class CustomUser(AbstractUser):
 
 class Administrator(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    photo = models.ImageField( upload_to="admin/")
     telegram_username = models.CharField("Telegram username", max_length=25, blank=True)
    
     
