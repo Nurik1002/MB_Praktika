@@ -6,14 +6,16 @@ from .views import (
     Logout, 
     userProfile, 
     createDoctor,
+    doctorHomeView, 
     )
 
 
 urlpatterns = [
-    path('doctor/create/', createDoctor, name='create_doctor'),
+    path("doctor/home", doctorHomeView, name="doctor_home"),
+    path('doctor/create/', createDoctor, name='doctor_create'),
     path('user/profile/', userProfile, name='user_profile'),
     path('logout/', Logout, name="logout"),
-    path("login/user/", userLoginView, name="login" ),
+    path("login/", userLoginView, name="login" ),
     path("user/create", userCreateView, name="user_create"),
     path("", homeView, name="home"),
 ]

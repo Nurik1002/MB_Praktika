@@ -115,11 +115,18 @@
 
         <div class="col-12">
             <button class="btn btn-primary" type="submit">Signup as user</button>
-            <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
+           
         </div>
         
 
     </form>
+    <hr>
+    <br>
+    <div class="col-12">
+        <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-primary" href="{% url 'doctor_create' %}" role="button">Signup as doctor</a>
+    </div>
+  
 
 
 {% endblock content %}

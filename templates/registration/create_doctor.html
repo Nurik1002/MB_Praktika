@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Sign In as doctor{% endblock title %}
+{% block title %}Signup as doctor{% endblock title %}
 
 {% block content %}
     <div>
-        <h1>Sign In as doctor</h1>
+        <h1>Signup as doctor</h1>
     </div>
 
     <form  method="POST" row g-3 needs-validation novalidate>
@@ -79,6 +79,16 @@
         </div>
         
         
+        <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Specialist</label>
+            <div class="input-group has-validation">
+              
+              <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="specialist" required>
+              <div class="invalid-feedback">
+                Please choose a username.
+              </div>
+            </div>
+        </div>
 
         <div class="col-md-4">
             <label for="validationCustomUsername" class="form-label">Username</label>
@@ -114,12 +124,17 @@
         
 
         <div class="col-12">
-            <button class="btn btn-primary" type="submit">Signup as user</button>
-            <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
+            <button class="btn btn-primary" type="submit">Signup as doctor</button>
         </div>
         
 
     </form>
-
+    <hr>
+    <br>
+    <div class="col-12">
+        <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-primary" href="{% url 'user_create' %}" role="button">Signup as user</a>
+    </div>
+  
 
 {% endblock content %}

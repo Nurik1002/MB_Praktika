@@ -42,7 +42,7 @@ class Doctor(models.Model):
     
     
     def __str__(self) -> str:
-        return f"{self.last_name} {self.first_name} {self.phone_number}"
+        return f"{self.user.last_name} {self.user.first_name} {self.user.phone_number}"
     
     class  Meta:
         verbose_name = 'Doctor'

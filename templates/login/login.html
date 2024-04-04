@@ -15,12 +15,16 @@
       <label for="exampleInputPassword1" class="form-label">Password</label>
       <input type="password" class="form-control" id="exampleInputPassword1" name="password">
     </div>
-    <div class="col-md-4 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    <br>
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-primary">Login</button>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-    <a class="btn btn-primary" href="{% url  'user_create' %}" role="button">Sign</a>
   </form>
+<hr>
+  <br>
+    <div class="col-md-4">
+        <a class="btn btn-primary" href="{% url 'doctor_create' %}" role="button">Signup as doctor</a>
+        <a class="btn btn-primary" href="{% url 'user_create' %}" role="button">Signup as user</a>
+    </div>
 
 {% endblock content %}
