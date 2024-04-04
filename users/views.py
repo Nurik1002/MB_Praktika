@@ -57,6 +57,12 @@ def userLoginView(request):
 
 
 
+def createDoctor(request):
+
+    return render(request, "registration/create_doctor.html", {})
+
+
+
 @login_required(login_url='login')
 def Logout(request):
     logout(request)

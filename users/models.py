@@ -8,6 +8,8 @@ class CustomUser(AbstractUser):
     city = models.CharField("City", max_length=100, blank=True)
     phone_number = PhoneNumberField(blank=True)
     photo = models.ImageField(upload_to="user")
+    is_doctor = models.BooleanField(default=False)
+    is_manager = models.BooleanField(default=False)
    
 
     def __str__(self) -> str:
