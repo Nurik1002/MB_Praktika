@@ -13,7 +13,7 @@
     <br>
     <h5>{{ user.last_name }} {{ user.first_name }}</h5>
     <br>
-    <img src="{{ user.photo.url }}" alt="">
+    
     {% else %}
     <a href="{% url 'user_create' %}">Register</a>|<a href="{% url 'login' %}">Login</a>
     

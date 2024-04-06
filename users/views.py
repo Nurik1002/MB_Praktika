@@ -114,6 +114,11 @@ def createDoctor(request):
 
 
 @login_required(login_url='login')
-def userProfile(request):
+def userProfile(request, pk):
     context = {}
-    return render(request, "user_profile.html", context=context)
+    user = CustomUser.objects.get(id=pk)
+    context["user"] = user
+    if user.is_doctor  and user.is_active:
+        pass
+    elif user.is_active :
+         return render(request, "user_profile.html", context=context)

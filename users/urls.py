@@ -13,7 +13,7 @@ from .views import (
 urlpatterns = [
     path("doctor/home", doctorHomeView, name="doctor_home"),
     path('doctor/create/', createDoctor, name='doctor_create'),
-    path('user/profile/', userProfile, name='user_profile'),
+    path('user/<int:pk>/', userProfile, name='profile'),
     path('logout/', Logout, name="logout"),
     path("login/", userLoginView, name="login" ),
     path("user/create", userCreateView, name="user_create"),
