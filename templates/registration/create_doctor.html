@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Signup as doctor{% endblock title %}
 
+
 {% block content %}
     <div>
         <h1>Signup as doctor</h1>
@@ -47,9 +48,9 @@
 
         <div class="col-md-4">
             <label for="validationCustom04" class="form-label">Work Country</label>
-            <select class="form-select" id="validationCustom04" name="country" required>
+            <select class="form-select" id="country" name="country" required>
               <option selected disabled value="">Choose...</option>
-              <option>...</option>
+        
             </select>
             <div class="invalid-feedback">
               Please select a valid state.
@@ -58,9 +59,9 @@
 
         <div class="col-md-4">
           <label for="validationCustom04" class="form-label">Work State</label>
-          <select class="form-select" id="validationCustom04" name="state" required>
+          <select class="form-select" id="state" name="state" required>
             <option selected disabled value="">Choose...</option>
-            <option>...</option>
+       
           </select>
           <div class="invalid-feedback">
             Please select a valid city.
@@ -69,9 +70,9 @@
 
         <div class="col-md-4">
             <label for="validationCustom04" class="form-label">Work City</label>
-            <select class="form-select" id="validationCustom04" name="city" required>
+            <select class="form-select" id="city" name="city" required>
               <option selected disabled value="">Choose...</option>
-              <option>...</option>
+             
             </select>
             <div class="invalid-feedback">
               Please select a valid city.
@@ -138,3 +139,8 @@
   
 
 {% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/register.js' %}"></script>
+{% endblock script %}
+
