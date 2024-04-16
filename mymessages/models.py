@@ -57,10 +57,11 @@ class GroupChat(MyChat):
         verbose_name = "Group Chat"
         verbose_name_plural = "Group Chats"
 
-
+class ConcreteChat(MyChat):
+    pass  
 
 class Message(models.Model):
-    chat = models.ForeignKey(MyChat, on_delete=models.CASCADE, verbose_name="Chat", related_name='messages')
+    chat = models.ForeignKey(ConcreteChat, on_delete=models.CASCADE, verbose_name="Chat", related_name='messages')
     content = models.TextField(verbose_name="Content")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     read = models.BooleanField(default=False, verbose_name="Read")
