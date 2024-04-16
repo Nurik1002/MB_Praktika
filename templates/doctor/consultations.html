@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}My patients{% endblock title %}
 
 {% block content %}
     <div>
         <h1>My patients</h1>
+        
+        <div id="filter-consultations">
+            <h2>My patients</h2>
+            
+            <div id="doctor-links">
+                </div>  <!-- Doctor links will be added here -->
+            
+            <ul id="consultation-list">
+            </ul>
+        </div>
     </div>
 
-    
-
+    <script src="{% static 'js/consultation_ajax.js' %}"></script>  
 {% endblock content %}

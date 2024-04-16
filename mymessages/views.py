@@ -4,18 +4,18 @@ from django.shortcuts import render
 from .models import Consultation, MyChat, PrivateChat, GroupChat, Message
 
 
-def consultatoinFilterByDoctor(request):
+def consultatoinFilterByDoctor(request, pk):
     if request.method == 'GET' and request.is_ajax():
-        doctor_id = request.GET.get('doctor_id')
+
 
         if doctor_id:
 
-            consultations = Consultation.objects.filter(doctor_id=doctor_id)
+            consultations = Consultation.objects.filter(doctor_id=pk)
             consultation_data = [  
                 {
                 "id" : constation.id,
-                "title" : constation.title
-                "description" : constation.description
+                "title" : constation.title,
+                "description" : constation.description,
                 "user_id" : constation.user_id
                 }
                 for constation in consultations
