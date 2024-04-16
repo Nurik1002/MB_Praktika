@@ -118,7 +118,9 @@ def userProfile(request, pk):
     context = {}
     user = CustomUser.objects.get(id=pk)
     context["user"] = user
-    if user.is_doctor  and user.is_active:
-        return render (request, "doctor_profile.html", context=context)        
+    if user.is_superuser and user.is_active :
+        return render (request, "profiles/admin_profile.html", context=context) 
+    elif user.is_doctor  and user.is_active:
+        return render (request, "profiles/doctor_profile.html", context=context)        
     elif user.is_active :
-        return render(request, "user_profile.html", context=context)
+        return render(request, "profiles/user_profile.html", context=context)
