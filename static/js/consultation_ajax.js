@@ -2,7 +2,7 @@ $(document).ready(function() {
     $(".doctor-link").click(function(event) {
         event.preventDefault(); 
         var doctorId = $(this).data('doctor-id');
-        var url = '/chats/' + doctorId + '/consultations/';  /
+        var url = '/chats/' + doctorId + '/consultations/';  
 
         $.ajax({
             url: url,
