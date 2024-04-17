@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import consultatoinFilterByDoctor
+from .views import consultatoinFilterByDoctor, consultation
 
 urlpatterns = [
-    path('<int:pk>/consultations/', consultatoinFilterByDoctor, name='doctorConsultations'),
+    path('<int:pk>/filterConsultations/', consultatoinFilterByDoctor, name='filterConsultations'),
+    path('<int:pk>/consultations/', consultation, name='doctorConsultations'),
 ]
