@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My patients{% endblock title %}
+
+{% block content %}
+    <h1>Create Consultation</h1>
+   <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <input type="text" name="title" placeholder="Title" required>
+            <br>
+            <br>
+            <input type="text" name="desctription" placeholder="Desctription" required>
+        </form>
+   </div>
+
+{% endblock content %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+</script>
+{% endblock script %}

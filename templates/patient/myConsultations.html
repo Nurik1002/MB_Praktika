@@ -1,29 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}My patients{% endblock title %}
+{% block title %}My consultations{% endblock title %}
 
 {% block content %}
-
     <div>
-        <h1>My patients</h1>
-        
+        <h1>My consultations</h1>
+        <a href="{% url 'createConsultation' %}">Create consultation</a>
         <div id="filter-consultations">   
             <ul id="consultation-list">
 
             </ul>
         </div>
     </div>
-
 {% endblock content %}
 
 {% block script %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        var doctorId = "{{ doctor.user.id }}"
-        var url = '/chats/' + doctorId + '/filter/consultations/by/doctor/';
+  $(document).ready(function() {
+        var userId = "{{ user.id }}"
+        var url = '/chats/' + userId + '/filter/consultations/by/user/';
         function fetchNewConsultations() {
         $.ajax({
             url: url,
@@ -44,7 +42,7 @@
                             <li>
                                 <h3> Title: ${consultation.title}</h3>
                                 <p> Descriptoin: ${consultation.description}</p>
-                                <p>User ID: ${consultation.user_id}</p>
+                                <p>Doctor ID: ${consultation.doctor_id}</p>
                             </li>`;
                         consultationList.append(consultationItem);
                     });
