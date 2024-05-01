@@ -21,7 +21,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
         var userId = "{{ user.id }}"
-        var url = '/chats/' + userId + '/filter/consultations/by/user/';
+        var url = '/ajax/' + userId + '/filter/consultations/by/user/';
         function fetchNewConsultations() {
         $.ajax({
             url: url,
@@ -57,7 +57,7 @@
         });
     }
     fetchNewConsultations();
-    setInterval(fetchNewConsultations, 60000);   
+    setInterval(fetchNewConsultations, 1000);   
 });
 
 </script>

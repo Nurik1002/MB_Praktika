@@ -23,7 +23,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var doctorId = "{{ doctor.user.id }}"
-        var url = '/chats/' + doctorId + '/filter/consultations/by/doctor/';
+        var url = '/ajax/' + doctorId + '/filter/consultations/by/doctor/';
         function fetchNewConsultations() {
         $.ajax({
             url: url,
