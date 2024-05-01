@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Consultation, MyChat, PrivateChat, GroupChat, Message, Doctor, CustomUser
-
+from .forms import ConsultationForm
     
 
 
@@ -14,7 +14,9 @@ def consultation(request, pk):
 
 @login_required(login_url='login')
 def createConsultation(request):
-    return render(request, "patient/createConsultation.html")
+    context = dict()
+    context["form"] = ConsultationForm()
+    return render(request, "patient/createConsultation.html", context=context)
 
 @login_required(login_url='login')
 def myDoctors(request, pk):

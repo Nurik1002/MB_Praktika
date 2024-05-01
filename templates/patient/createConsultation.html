@@ -9,17 +9,11 @@
         <form action="" method="POST">
             {% csrf_token %}
 
-            <input type="text" name="title" placeholder="Title" required>
-            <br>
-            <br>
-            <input type="text" name="desctription" placeholder="Desctription" required>
-            <br>
-            <br>
-            <select name="doctors" id="doctors"></select>
+            {{ form.as_p }}
             
-            
-            <button type="submit">Send request</button>
+            <button type="button" id="savedata">Send request</button>
         </form>
+        <a href="{% url 'myDoctors' user.id %}">My consultations</a>
    </div>
 
 {% endblock content %}
@@ -28,6 +22,42 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
+
+    $('#savedata').click(function(){
+
+
+        let tit = $('#titleid').val();
+        let des = $('#descriptionid').val();
+        let doc = $('#doctors').val();
+       
+
+        if (tit == ""){
+            alert("Title is required");
+        }
+        else if (des == ""){
+            alert("Description is required");
+        }
+        else if (doc  == ""){
+            alert("Doctor is required");
+        }
+        else{
+            mydata = {title:tit ,  description:des, doctor:doc}
+            $.ajax({
+                url: '/ajax/create/consultation/',
+                type: 'POST',
+                data: mydata,
+                success: function(response) {
+                    console.log(response.message);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            })
+        }
+    });
+
+
+
     $("#createConsultationForm").submit(function(event) {
     event.preventDefault();
     var formData = new FormData(this); 
@@ -80,7 +110,7 @@ $(document).ready(function(){
         })
     }
     getDoctors()
-    setInterval(getDoctors, 100000);
+  //  setInterval(getDoctors, 100000);
 }); 
 </script>
 {% endblock script %}
