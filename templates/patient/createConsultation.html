@@ -48,6 +48,7 @@
                 data: mydata,
                 success: function(response) {
                     console.log(response.message);
+                    window.open("{% url 'myDoctors' user.id %}")
                 },
                 error: function(error) {
                     console.error(error);
