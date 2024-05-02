@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'users',
     'mymessages',
     'ajax',
+    'post',
+    'ckeditor',
     
 ]
 
