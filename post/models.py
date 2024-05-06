@@ -35,6 +35,7 @@ class Post(models.Model):
 class PostComment(models.Model):
     post = models.ForeignKey(Post, verbose_name="Post", on_delete=models.CASCADE)
     comment = models.CharField(max_length=1024, verbose_name="Comment")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Created time")
 
     def __str__(self) -> str:
         return  f"{self.post.title} {self.comment}"

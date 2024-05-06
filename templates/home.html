@@ -7,4 +7,65 @@
         <h1>Home page</h1>
     </div>
     
+
+    <div>
+        <h1>Posts</h1>
+
+        <div id="filter-posts">   
+            <ul id="post-list">
+
+            </ul>
+        </div>
+    </div>
+<a href=""></a>
 {% endblock content %}
+
+
+{% block script %}
+
+<script type="text/javascript">
+ $(document).ready(function() {
+        var doctorId = "{{ doctor.user.id }}"
+        var url = "{% url 'all_posts' %}"
+        function fetchNewConsultations() {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            headers: {
+                'Accept': 'application/json'
+            },
+            timeout: 10000, 
+            success: function(response) {
+                var post_list = $('#post-list');
+                post_list.empty();  
+
+                if (response.post_list.length > 0) {
+                    console.log(response.post_list);
+                    $.each(response.posts, function(index, post) {
+                        var postItem = `
+                            <li>
+                                <a href="{% url 'post_detail' pk=${post.id} %}">
+                                    <h5>${post.title}</h5>
+                                    <p>${post.user}</p>
+                                </a>
+                                
+                            </li>`;
+                            post_list.append(postItem);
+                    });
+                } else {
+                    post_list.append('<li>No consultations found for this doctor.</li>');
+                }
+            },
+            error: function(error) {
+                console.error(error);
+              
+            }
+        });
+    }
+    fetchNewConsultations();
+    setInterval(fetchNewConsultations, 60000);   
+});
+</script>
+
+{% endblock script %}
