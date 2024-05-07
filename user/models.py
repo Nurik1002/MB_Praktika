@@ -17,7 +17,7 @@ class CustomUser(AbstractUser):
 
     class  Meta:
         verbose_name = 'BaseUser'
-        verbose_name_plural = 'BaseUsers'
+        verbose_name_plural = '3. BaseUsers'
 
 
 
@@ -31,7 +31,7 @@ class Administrator(models.Model):
     
     class  Meta:
         verbose_name = 'Administrator'
-        verbose_name_plural = 'Administrators'
+        verbose_name_plural = '1. Administrators'
 
 class Doctor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -46,6 +46,6 @@ class Doctor(models.Model):
     
     class  Meta:
         verbose_name = 'Doctor'
-        verbose_name_plural = 'Doctors'
+        verbose_name_plural = '2. Doctors'
     
 
