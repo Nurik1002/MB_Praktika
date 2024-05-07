@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My patients{% endblock title %}
+
+{% block content %}
+
+    <div>
+        <h1>My patients</h1>
+        
+        <div id="filter-consultations">   
+            <ul id="consultation-list">
+
+            </ul>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var doctorId = "{{ doctor.user.id }}"
+        var url = '/ajax/' + doctorId + '/filter/consultations/by/doctor/';
+        function fetchNewConsultations() {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            headers: {
+                'Accept': 'application/json'
+            },
+            timeout: 10000, 
+            success: function(response) {
+                var consultationList = $('#consultation-list');
+                consultationList.empty();  
+
+                if (response.consultations.length > 0) {
+                    console.log(response.consultations);
+                    $.each(response.consultations, function(index, consultation) {
+                        var consultationItem = `
+                            <li>
+                                <h3> Title: ${consultation.title}</h3>
+                                <p> Descriptoin: ${consultation.description}</p>
+                                <p>User ID: ${consultation.user_id}</p>
+                            </li>`;
+                        consultationList.append(consultationItem);
+                    });
+                } else {
+                    consultationList.append('<li>No consultations found for this doctor.</li>');
+                }
+            },
+            error: function(error) {
+                console.error(error);
+              
+            }
+        });
+    }
+    fetchNewConsultations();
+    setInterval(fetchNewConsultations, 60000);   
+});
+
+</script>
+{% endblock script %}

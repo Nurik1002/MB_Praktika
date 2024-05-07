@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User profile{% endblock title %}
+
+{% block content %}
+    <div>
+        <h1>User profile</h1>
+    </div>
+
+    {% if user.is_authenticated %}
+    <h1> {{ user.username }} </h1>
+    <a href="{% url 'logout' %}">Logout</a>
+    <br>
+    <h5>{{ user.last_name }} {{ user.first_name }}</h5>
+    <br>
+    
+    {% else %}
+    <a href="{% url 'user_create' %}">Register</a>|<a href="{% url 'login' %}">Login</a>
+    
+    {% endif %}
+
+{% endblock content %}

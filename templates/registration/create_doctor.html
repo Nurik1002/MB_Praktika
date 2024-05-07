@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Signup as doctor{% endblock title %}
+
+
+{% block content %}
+    <div>
+        <h1>Signup as doctor</h1>
+    </div>
+
+    <form  method="POST" row g-3 needs-validation novalidate>
+    
+        {% csrf_token %}  
+
+
+
+        <div class="col-md-4">
+        <label for="validationCustom01" class="form-label">First name</label>
+        <input type="text" class="form-control" id="validationCustom01"  name="fname" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="validationCustom02" name="lname" required>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Email</label>
+            <input type="email" class="form-control" id="validationCustom02" name="email" required>
+            <div class="valid-feedback">
+                Please choose a username.
+            </div>
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom02" class="form-label">Phone number</label>
+          <input type="text" class="form-control" id="validationCustom02" name="phone" required>
+          <div class="valid-feedback">
+              Please choose a username.
+          </div>
+      </div>
+
+
+        <div class="col-md-4">
+            <label for="validationCustom04" class="form-label">Work Country</label>
+            <select class="form-select" id="country" name="country" required>
+              <option selected disabled value="">Choose...</option>
+        
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid state.
+            </div>
+        </div>
+
+        <div class="col-md-4">
+          <label for="validationCustom04" class="form-label">Work State</label>
+          <select class="form-select" id="state" name="state" required>
+            <option selected disabled value="">Choose...</option>
+       
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid city.
+          </div>
+      </div>
+
+        <div class="col-md-4">
+            <label for="validationCustom04" class="form-label">Work City</label>
+            <select class="form-select" id="city" name="city" required>
+              <option selected disabled value="">Choose...</option>
+             
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid city.
+            </div>
+        </div>
+        
+        
+        <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Specialist</label>
+            <div class="input-group has-validation">
+              
+              <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="specialist" required>
+              <div class="invalid-feedback">
+                Please choose a username.
+              </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Username</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">@</span>
+              <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="username" required>
+              <div class="invalid-feedback">
+                Please choose a username.
+              </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">Password</label>
+            <input type="password" class="form-control" id="validationCustom05" name="password" required>
+            <div class="invalid-feedback">
+              Please provide a valid password.
+            </div>
+        </div>
+        
+
+        <div class="col-md-4">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+              <label class="form-check-label" for="invalidCheck">
+                Agree to terms and conditions
+              </label>
+              <div class="invalid-feedback">
+                You must agree before submitting.
+              </div>
+            </div>
+        </div>
+        
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Signup as doctor</button>
+        </div>
+        
+
+    </form>
+    <hr>
+    <br>
+    <div class="col-12">
+        <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-primary" href="{% url 'user_create' %}" role="button">Signup as user</a>
+    </div>
+  
+
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/register.js' %}"></script>
+{% endblock script %}
+
