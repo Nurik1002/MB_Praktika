@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'post',
+    'ajax',
+    'ckeditor',
     'consultation', 
     'user',
     'django.contrib.admin',
