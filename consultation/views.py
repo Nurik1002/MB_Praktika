@@ -25,7 +25,7 @@ def myDoctors(request, pk):
 
 
 @login_required(login_url='login')
-def createAnswerConsultation(request):
+def createAnswerConsultation(request, pk):
     context = {}
     context["form"] = ConsultationAnswerForm()
-    return render(request, "doctor/answer_consultatoin.html", context=context)
+    return render(request, "doctor/answer_consultation.html", context=context)
