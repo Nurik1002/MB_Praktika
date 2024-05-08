@@ -42,13 +42,13 @@
                 if (response.consultations.length > 0) {
                     console.log(response.consultations);
                     $.each(response.consultations, function(index, consultation) {
-                        var idconsut = consultation.id
-                        var consultationItem = " <li>  \
-                            <h3> Title: ${consultation.title}</h3>    \
-                            <p> Descriptoin: ${consultation.description}</p>\
-                            <p>User ID: ${consultation.user_id}</p>\
-                            <a href=\"{% url 'answerConsultation'  pk=" + idconsuts + " %}\">Reply</a>\
-                            </li>";
+                        var consultationItem = `
+                            <li>
+                                <h3> Title: ${consultation.title}</h3>
+                                <p> Descriptoin: ${consultation.description}</p>
+                                <p>User ID: ${consultation.user_id}</p>
+                               
+                            </li>`;
                         consultationList.append(consultationItem);
                     });
                 } else {
