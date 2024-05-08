@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Consultation, Doctor, CustomUser
-from .forms import ConsultationForm
+from .forms import ConsultationForm, ConsultationAnswerForm
     
 
 
@@ -22,3 +22,10 @@ def createConsultation(request):
 def myDoctors(request, pk):
     user = CustomUser.objects.get(id=pk)
     return render(request, "patient/myConsultations.html", {"user": user})
+
+
+@login_required(login_url='login')
+def createAnswerConsultation(request):
+    context = {}
+    context["form"] = ConsultationAnswerForm()
+    return render(request, "doctor/answer_consultatoin.html", context=context)
