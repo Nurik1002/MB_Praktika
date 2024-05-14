@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h1>Answer Consultation: {{ consultation.title }}</h1>
+    <form method="post" id="answer-consultation-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Answer</button>
+    </form>
+
+    <div id="answer-message"></div> 
+{% endblock content %}
+
+{% block script %}
+<script>
+$(document).ready(function() {
+    $('#answer-consultation-form').submit(function(event) {
+        event.preventDefault(); 
+
+        var formData = $(this).serialize(); 
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'), 
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    $('#answer-message').html(response.answer_html).addClass('alert alert-success');
+                    $('#answer-consultation-form')[0].reset();
+                } else {
+                    console.log('ERROR');
+                }
+            },
+            error: function(error) {
+                // Handle AJAX errors
+                console.error('Error submitting answer:', error); 
+                $('#answer-message').html("An error occurred.").addClass('alert alert-danger');
+            }
+        });
+    });
+});
+</script>
+
+{% endblock script %}

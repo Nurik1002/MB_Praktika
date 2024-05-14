@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Consultations</h1>
+    <ul>
+        {% for consultation in consultations %}
+            <li>
+               <a href="{% url 'consultion_detail' pk=consultation.id %}">{{ consultation.title }} {{ consultation.user }}</a>                                
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_consultation' %}">Create Consultation</a>
+{% endblock content %}

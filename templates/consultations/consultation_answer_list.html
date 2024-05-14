@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <h1>Consultation Answers</h1>
+    <ul>
+        {% for answer in answers %}
+            <li>
+                {{ answer.diagnosis }} - {{ answer.recommendation }}
+            </li>
+        {% endfor %}
+    </ul>
+    
+{% endblock content %}

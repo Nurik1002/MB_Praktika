@@ -1,31 +1,40 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Consultation, Doctor, CustomUser
+from .models import Consultation, ConsultationAnswer
 from .forms import ConsultationForm, ConsultationAnswerForm
-    
-
-
-@login_required(login_url='login')
-def consultation(request, pk):
-    user = CustomUser.objects.get(id=pk)
-    doctor = Doctor.objects.get(user=user)
-    return render(request, "doctor/consultations.html", {"doctor": doctor})
+from user.models import CustomUser, Doctor
 
 @login_required(login_url='login')
-def createConsultation(request):
+def doctor_consultation_list(request):
     context = dict()
-    context["form"] = ConsultationForm()
-    return render(request, "patient/createConsultation.html", context=context)
-
-@login_required(login_url='login')
-def myDoctors(request, pk):
-    user = CustomUser.objects.get(id=pk)
-    return render(request, "patient/myConsultations.html", {"user": user})
+    doctor = Doctor.objects.get(user = request.user)
+    context['consultations'] = Consultation.objects.filter(doctor=doctor)
+    return render(request, "consultations/doctor_consultation_list.html", context=context)
 
 
 @login_required(login_url='login')
-def createAnswerConsultation(request, pk):
-    context = {}
-    context["form"] = ConsultationAnswerForm()
-    return render(request, "doctor/answer_consultation.html", context=context)
+def user_consultation_list(request):
+    context = dict()
+    context['consultations'] = Consultation.objects.filter(user=request.user)
+    return render(request, "consultations/consultation_list.html", context=context)
+
+@login_required(login_url='login')
+def consultation_detail(request, pk):
+    context = dict()
+    context['consultations'] = Consultation.objects.get(id=pk)
+    return render(request, "consultations/consultation_detail.html", context=context)
+
+
+@login_required(login_url='login')
+def create_consultation(request):
+    if request.method == 'POST':
+        form = ConsultationForm(request.POST, request.FILES)
+        if form.is_valid():
+            consultation = form.save(commit=False)
+            consultation.user = request.user
+            consultation.save()
+            return JsonResponse({'success': True})
+    else:
+        form = ConsultationForm()
+    return render(request, "consultations/consultation_form.html", {'form': form})

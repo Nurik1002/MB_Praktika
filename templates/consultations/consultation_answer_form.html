@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Answer Consultation for: {{ consultation.title }}</h1>
+
+    <form method="post" id="answer-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Answer</button>
+    </form>
+{% endblock  content %}
+
+{% block script %}
+    <script type="text/javascript" src="/assets/javascripts/ckeditor.js"></script>
+     <script>
+        $(document).ready(function() {
+            $('#answer-form').submit(function(event) {
+                event.preventDefault();
+                var url = $(this).attr('action');
+                var formData = new FormData(this);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false, 
+                    success: function(data) {
+                        if (data.success) {
+                            alert('Answer submitted successfully!');
+                            window.location.href = "{% url 'consultation_list' %}"; 
+                        } else {
+                            alert('Error submitting answer');
+                        }
+                    },
+                    error: function() {
+                        alert('Error submitting answer');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock script %}

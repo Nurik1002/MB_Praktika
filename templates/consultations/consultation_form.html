@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Consultation</h1>
+    <form method="post" enctype="multipart/form-data" id="consultation-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+{% endblock content %}
+
+{% block script %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#consultation-form').submit(function(event) {
+                event.preventDefault();
+                var url = $(this).attr('action');
+                var formData = new FormData(this);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false, 
+                    success: function(data) {
+                        if (data.success) {
+                            alert('Consultation saved successfully!');
+                            window.location.href = "{% url 'user_consultation_list' %}"; 
+                        } else {
+                            alert('Error saving consultation');
+                        }
+                    },
+                    error: function() {
+                        alert('Error saving consultation');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock script %}

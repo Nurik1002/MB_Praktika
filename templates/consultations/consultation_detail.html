@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div>
+    <h1>Details</h1>
+</div>
+<div>
+    <h5>Title :  {{ consultations.title }} </h5>
+    <p> Description : {{ consultations.description }}</p>
+    <img src="{{ consultations.photo.url }}" alt="img">
+    
+
+    
+</div>
+<h6> Doctor:  {{ consultations.doctor }}</h6>
+{% endblock content %}

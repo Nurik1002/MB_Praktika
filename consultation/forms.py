@@ -1,5 +1,5 @@
 from django import forms
-
+from ckeditor.fields import RichTextFormField
 from .models import Consultation, ConsultationAnswer
 from user.models import CustomUser, Doctor
 
@@ -7,12 +7,12 @@ from user.models import CustomUser, Doctor
 class ConsultationForm(forms.ModelForm):
     class Meta:
         model = Consultation
-        fields = ['title',  'description', 'doctor']
+        fields = ['title', 'photo', 'files',  'description', 'doctor']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'id':'titleid'}),
-            # 'photo': forms.FileInput(attrs={'class': 'form-control'}),
-            # 'files': forms.FileInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'id':'descriptionid'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
+            'files': forms.FileInput(attrs={'class': 'form-control'}),
+            'description': RichTextFormField(config_name="default"),
             'doctor': forms.Select(attrs={'class': 'form-control', 'id':'doctors'}),
         }
 
@@ -23,5 +23,5 @@ class ConsultationAnswerForm(forms.ModelForm):
         fields = ['diagnosis', 'recommendation']
         widgets = {
             'diagnosis': forms.TextInput(attrs={'class': 'form-control', 'id':'diagnosisid'}),
-            'recommendation': forms.Textarea(attrs={'class': 'form-control', 'id':'recommendationid'}),
+            'recommendation': RichTextFormField(config_name="default"),
         }
