@@ -1,16 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div>
-    <h1>Details</h1>
-</div>
-<div>
-    <h5>Title :  {{ consultations.title }} </h5>
-    <p> Description : {{ consultations.description }}</p>
-    <img src="{{ consultations.photo.url }}" alt="img">
-    
-
-    
-</div>
-<h6> Doctor:  {{ consultations.doctor }}</h6>
+    <div>
+        <h1>Details</h1>
+    </div>
+    <div>
+        <h5>Title :  {{ consultations.title }} </h5>
+        <p> Description : {{ consultations.description }}</p>
+        <img src="{{ consultations.photo.url }}" alt="img">
+            
+    </div>
+    {% if user.is_doctor %}
+    <a href="{% url 'answer_consultation' consultations.id %}">Answer</a>
+    {% else %}
+        {% if answers is not None %}
+            {% for answer in answers %}
+                <div>
+                    <h5>Diagnosis : {{ answer.diagnosis }}</h5>
+                    <p> Recommendation : {{ answer.recommendation }}</p>
+                </div>
+            {% endfor %}
+            <a href="{% url 'profile' consultations.doctor.user.username %}">
+                <h6> Doctor:  {{ consultations.doctor }}</h6>
+            </a>
+            
+        {% endif %}
+    {% endif %}
 {% endblock content %}

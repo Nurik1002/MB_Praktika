@@ -114,9 +114,9 @@ def createDoctor(request):
 
 
 @login_required(login_url='login')
-def userProfile(request, pk):
+def userProfile(request, uname):
     context = {}
-    user = CustomUser.objects.get(id=pk)
+    user = CustomUser.objects.get(username=uname)
     context["user"] = user
     if user.is_superuser and user.is_active :
         return render (request, "profiles/admin_profile.html", context=context) 

@@ -22,7 +22,10 @@ def user_consultation_list(request):
 @login_required(login_url='login')
 def consultation_detail(request, pk):
     context = dict()
-    context['consultations'] = Consultation.objects.get(id=pk)
+    consultation = Consultation.objects.get(id=pk)
+    context['consultations'] = consultation
+    answers = ConsultationAnswer.objects.filter(consultation=consultation)
+    context['answers'] = answers
     return render(request, "consultations/consultation_detail.html", context=context)
 
 
@@ -38,3 +41,21 @@ def create_consultation(request):
     else:
         form = ConsultationForm()
     return render(request, "consultations/consultation_form.html", {'form': form})
+
+
+@login_required(login_url='login')
+def answer_consultation(request, pk):
+    if request.method == 'POST':
+        form = ConsultationAnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            consultation = Consultation.objects.get(id=pk)
+            answer.consultation = consultation
+            doctor = Doctor.objects.get(user = request.user)
+            answer.doctor=doctor
+            answer.save()
+            return JsonResponse({'success': True})
+    else:
+        form = ConsultationAnswerForm()
+        consultation = Consultation.objects.get(id=pk)
+    return render(request, "consultations/consultation_answer_form.html", {'form': form, 'consultation':consultation })
