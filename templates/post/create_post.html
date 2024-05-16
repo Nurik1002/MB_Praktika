@@ -5,5 +5,44 @@
 {% block content %}
     <div>
         <h1>Create new post</h1>
+        <form action="" method="POST" id="post-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create</button>
+        </form>
     </div>
 {% endblock content %}
+
+{% block script %}
+<script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#post-form').submit(function(event) {
+            event.preventDefault();
+            var url = $(this).attr('action');
+            var formData = new FormData(this);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,     
+                success: function(data) {
+                    if (data.success) {
+                        alert('Consultation saved successfully!');
+                        window.location.href = "{% url 'home' %}"; 
+                    } else {
+                        alert('Error saving consultation');
+                    }
+                },
+                error: function() {
+                    alert('Error saving consultation');
+                }
+            });
+        });
+    });
+</script>
+</script>
+{% endblock script %}

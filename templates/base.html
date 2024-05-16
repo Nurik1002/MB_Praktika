@@ -28,9 +28,14 @@
       {% if user.is_authenticated %}
         
         <a href="{% url 'profile' user.username %}">Profile</a> |    
+
+        {% if user.is_superuser %}
+          <a href="{% url 'post_create' %}">Post add</a> |
+        {% endif %}
         
-        {% if user.is_doctor %}
-          <a href="{% url 'doctor_consultation_list' %}">My patients</a> |
+        {% if user.is_doctor  %}
+          <a href="{% url 'doctor_consultation_list' %}">My patients</a> | 
+          <a href="{% url 'post_create' %}">Post add</a> |
         {% else %}
           <a href="{% url 'user_consultation_list'  %}">My consultations</a> |
         {% endif %}

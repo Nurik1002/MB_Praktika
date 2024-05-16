@@ -3,14 +3,17 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from post.models import Post
 
 from .models import CustomUser, Administrator,  Doctor
 from .forms import EditCustomUser
 
     
 def homeView(request):
-    return  render(request, "home.html", {})
+    posts = Post.objects.all()
+    context = dict()
+    context['posts'] = posts
+    return  render(request, "home.html", context=context)
 
 def doctorHomeView(request):
     context = {}

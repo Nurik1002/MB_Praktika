@@ -12,9 +12,18 @@
         <h1>Posts</h1>
 
         <div id="filter-posts">   
-            <ul id="post-list">
-
-            </ul>
+            {% for post in posts %}
+                <div>
+                    <a href="{% url 'post_detail' post.id %}">
+                        <h6>Title : {{ post.title }}</h6>
+                        <p>description : {{ post.description|truncatewords:50  }}</p>
+                    </a>
+                    <p>Author :  <a href="{% url 'profile' post.author.username  %}"> {{ post.author.username }} </a>
+                     Category : {{ post.category }}
+                    </p>
+                </div>
+                <br>    
+            {% endfor %}
         </div>
     </div>
 <a href=""></a>
