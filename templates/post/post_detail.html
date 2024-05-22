@@ -3,7 +3,22 @@
 {% block title %}Post detail{% endblock title %}
 
 {% block content %}
+
     <div>
-        <h1>Post detail</h1>
+        <div>
+            <h1>{{ post.title }}</h1>
+        </div>
+        <div>
+            <p>{{ post.description }}</p>
+        </div>
+            <div>
+                </a> Author :  <a href="{% url 'profile' post.author.username  %}"> {{ post.author.username }} </a>
+            </div>
+      
+            <div>
+                <p> Category : {{ post.category }} </p> 
+            </div>
     </div>
+    
+
 {% endblock content %}
