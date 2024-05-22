@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AI Labs{% endblock title %}
+
+{% block content %}
+<h1>Image Classifier</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="file" id="file">
+    <button type="submit">Upload</button>
+</form>
+
+{% if image_url %}
+    <img src="{{ image_url }}" alt="Uploaded Image">
+    <p>Prediction: {{ predict }}</p>
+    <p>Confidence: {{ foiz }}%</p>
+{% endif %}
+{% endblock content %}
