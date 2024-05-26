@@ -1,22 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
     <h1>Image Filter App</h1>
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" id="image-upload-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" name="gaussian_blur" value="Gaussian Blur" />
-        <input type="submit" name="unsharp_mask" value="Unsharp Mask" />
-        <input type="submit" name="median_blur" value="Median Blur" />
+        <button type="submit" name="filter_name" value="gaussian_blur">Gaussian Blur</button>
+        <button type="submit" name="filter_name" value="unsharp_mask">Unsharp Mask</button>
+        <button type="submit" name="filter_name" value="median_blur">Median Blur</button>
+        <button type="submit" name="filter_name" value="clahe">CLAHE</button> 
     </form>
-    {% if processed_image %}
-        <img src="{{ MEDIA_URL }} {{ processed_image }}" alt="Processed Image" />
-        <p>{{ MEDIA_URL }} {{ processed_image }}</p>
-    {% endif %}
+
+    <div id="processed-image-container">
+        <!-- Processed image will be loaded here -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#image-upload-form').submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                var formData = new FormData(this); // Create FormData object
+
+                $.ajax({
+                    url: "{% url 'img_filters' %}",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            // Correctly construct the image URL
+                            var imageUrl = response.media_url + response.processed_image; 
+                            console.log(imageUrl);
+                            // Display the processed image
+                            $('#processed-image-container').html(`
+                                <img src="${imageUrl}" alt="Processed Image">
+                            `);
+                        } else {
+                            // Handle errors if needed
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock content %}
-
-
-{% block script %}
-{% endblock script %}

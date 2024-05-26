@@ -2,7 +2,11 @@ from django.core.files.storage import default_storage
 from django.conf import settings
 import cv2
 
-
+def clahe_filter(image_path):
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    processed_img = clahe.apply(img)
+    return processed_img
 
 def gaussian_blur(image_path, kernel_size=(5, 5)):
     img = cv2.imread(image_path)
