@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'image_filters',
     'ailab',
     'post',
     'ajax',

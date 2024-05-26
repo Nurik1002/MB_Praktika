@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <h1>Image Filter App</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="gaussian_blur" value="Gaussian Blur" />
+        <input type="submit" name="unsharp_mask" value="Unsharp Mask" />
+        <input type="submit" name="median_blur" value="Median Blur" />
+    </form>
+    {% if processed_image %}
+        <img src="{{ MEDIA_URL }} {{ processed_image }}" alt="Processed Image" />
+        <p>{{ MEDIA_URL }} {{ processed_image }}</p>
+    {% endif %}
+{% endblock content %}
+
+
+{% block script %}
+{% endblock script %}

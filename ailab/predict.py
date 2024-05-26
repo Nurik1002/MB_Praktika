@@ -1,9 +1,20 @@
-import tensorflow as tf
-import numpy as np
+import os
 import cv2
+import numpy as np 
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Flatten, Dropout
 
-
-
+def load_model():
+    mobile_net = tf.keras.applications.MobileNet(input_shape = (224,224,3), include_top=True)
+    model = Sequential([
+        mobile_net,
+        Flatten(),
+        Dense(1000, activation='relu'),
+        Dense(100, activation='relu'),
+        Dense(4, activation='softmax')
+    ])
+    return model
 
 def load_image(path):
     img = cv2.imread(path)
@@ -11,7 +22,8 @@ def load_image(path):
     return img
 
 def predict(image):
-    model = tf.keras.models.load_model("../models/braintumorclassidication.h5")
+    model = load_model() 
+    model.load_weights("./models/braintumorclassidication.h5")  
     classNames = ['Glioma', 'Meningioma', 'Pituitary', 'No tumor']
     image = np.asarray(image)
     image = cv2.resize(image, (224, 224))
