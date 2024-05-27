@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'post',
     'ajax',
     'ckeditor',
+    'ckeditor_uploader',
     'consultation', 
     'user',
     'django.contrib.admin',
@@ -128,8 +129,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 
 LOGIN_URL = 'login'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
+MEDIA_URL = '/media/'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'

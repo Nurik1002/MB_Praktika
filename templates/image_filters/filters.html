@@ -23,8 +23,5 @@
     <img src="data:image/jpg;base64,{{ processed_image }}" alt="Processed Image">
 {% endif %}
 
-{% if original_image_path %}
-    <h2>Original Image:</h2>
-    <img src="{% static original_image_path %}" alt="Original Image">
-{% endif %}
+
 {% endblock content %}

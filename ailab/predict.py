@@ -22,8 +22,7 @@ def load_image(path):
     return img
 
 def predict(image):
-    model = load_model() 
-    model.load_weights("./models/braintumorclassidication.h5")  
+    model = tf.keras.models.load_model("./models/braintumorclassidication.h5")
     classNames = ['Glioma', 'Meningioma', 'Pituitary', 'No tumor']
     image = np.asarray(image)
     image = cv2.resize(image, (224, 224))
