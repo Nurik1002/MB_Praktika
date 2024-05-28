@@ -1,29 +1,43 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
-    <div>
-        <h1>Details</h1>
-    </div>
-    <div>
-        <h5>Title :  {{ consultations.title }} </h5>
-        <p> Description : {{ consultations.description }}</p>
-        <img src="{{ consultations.photo.url }}" alt="img">
-            
-    </div>
-    {% if user.is_doctor %}
-    <a href="{% url 'answer_consultation' consultations.id %}">Answer</a>
-    {% else %}
-        {% if answers is not None %}
-            {% for answer in answers %}
-                <div>
-                    <h5>Diagnosis : {{ answer.diagnosis }}</h5>
-                    <p> Recommendation : {{ answer.recommendation }}</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center">{{ consultations.title }}</h1>
+        </div>
+        <div class="card-body">
+          
+          <p class="card-text">{{ consultations.description }}</p>
+          {% if consultations.photo %}
+            <img src="{{ consultations.photo.url }}" class="img-fluid rounded mb-3" alt="Consultation Image">
+          {% endif %}
+
+          {% if user.is_doctor %}
+            <br>
+            <a href="{% url 'answer_consultation' consultations.id %}" class="btn btn-primary">Answer</a>
+          {% else %}
+            {% if answers %}
+              <h5 class="mt-4">Answers:</h5>
+              {% for answer in answers %}
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <p class="card-text"><strong>Diagnosis:</strong> {{ answer.diagnosis }}</p>
+                    <p class="card-text"><strong>Recommendation:</strong> {{ answer.recommendation }}</p>
+                  </div>
                 </div>
-            {% endfor %}
-            <a href="{% url 'profile' consultations.doctor.user.username %}">
-                <h6> Doctor:  {{ consultations.doctor }}</h6>
-            </a>
-            
-        {% endif %}
-    {% endif %}
+              {% endfor %}
+              <a href="{% url 'profile' consultations.doctor.user.username %}" class="card-link">
+                Doctor: {{ consultations.doctor }}
+              </a>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

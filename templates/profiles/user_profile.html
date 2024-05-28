@@ -1,22 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}User profile{% endblock title %}
 
 {% block content %}
-    <div>
-        <h1>User profile</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8"> 
+      <div class="card mb-3">
+        <div class="card-body">
+          {% if user.is_authenticated %} 
+            <div class="row">
+              <div class="col-md-4 text-center">
+                {% if user.photo %}
+                  <img src="{{ user.photo.url }}" class="rounded-circle img-fluid" alt="Profile Picture">
+                {% else %}
+                  <img src="{% static 'images/default-profile.png' %}"  class="rounded-circle img-fluid" alt="Default Profile Picture"> 
+                {% endif %}
+              </div>
+              <div class="col-md-8">
+                <h2 class="card-title">Welcome, {{ user.username }}!</h2>
+                <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong>Country:</strong> {{ user.country }}</p>
+                <p><strong>State:</strong> {{ user.state }}</p>
+                <p><strong>City:</strong> {{ user.city }}</p>
+                <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+                <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+              </div>
+            </div>
+          {% else %} <div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center">User Profile</h1>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Please login or register to view your profile.</p>
+          <a href="{% url 'user_create' %}" class="btn btn-primary">Register</a>
+          <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+        </div>
+      </div>
     </div>
-
-    {% if user.is_authenticated %}
-    <h1> {{ user.username }} </h1>
-    <a href="{% url 'logout' %}">Logout</a>
-    <br>
-    <h5>{{ user.last_name }} {{ user.first_name }}</h5>
-    <br>
-    
-    {% else %}
-    <a href="{% url 'user_create' %}">Register</a>|<a href="{% url 'login' %}">Login</a>
-    
-    {% endif %}
+  </div>
+</div>
+{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}

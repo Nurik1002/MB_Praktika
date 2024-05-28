@@ -17,7 +17,7 @@ def homeView(request):
 
 def doctorHomeView(request):
     context = {}
-    return render(request, "home_doctor.html",  context=context)
+    return render(request, "home.html",  context=context)
 
 
 
@@ -32,7 +32,7 @@ def userLoginView(request):
         if user is not None:
             if user.is_doctor==True and user.is_active == True:
                 login(request, user)
-                return redirect('doctor_home')
+                return redirect('home')
             
             elif user.is_active == True:
                 login(request, user)
@@ -121,9 +121,12 @@ def userProfile(request, uname):
     context = {}
     user = CustomUser.objects.get(username=uname)
     context["user"] = user
+    
     if user.is_superuser and user.is_active :
         return render (request, "profiles/admin_profile.html", context=context) 
     elif user.is_doctor  and user.is_active:
+        doctor = Doctor.objects.get(user=user)
+        context["doctor"] = doctor
         return render (request, "profiles/doctor_profile.html", context=context)        
     elif user.is_active :
         return render(request, "profiles/user_profile.html", context=context)

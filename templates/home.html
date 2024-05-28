@@ -3,34 +3,38 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    <div>
-        <h1>Home page</h1>
+<div class="container mt-5">
+  <div class="row align-items-center">
+    <div class="col-md-8">
+      <h1 class="display-4 mb-4">Welcome to Your Website!</h1>
+      <p class="lead">This is the homepage where you can find the latest posts, news, and announcements.</p>
     </div>
-    
+    <div class="col-md-4">
+      </div>
+  </div>
 
-    <div>
-        <h1>Posts</h1>
+  <hr class="my-5">
 
-        <div id="filter-posts">   
-            {% for post in posts %}
-                <div>
-                    <a href="{% url 'post_detail' post.id %}">
-                        <h6>Title : {{ post.title }}</h6>
-                        <p>description : {{ post.description|truncatewords:50  }}</p>
-                    </a>
-                    <p>Author :  <a href="{% url 'profile' post.author.username  %}"> {{ post.author.username }} </a>
-                     Category : {{ post.category }}
-                    </p>
-                </div>
-                <br>    
-            {% endfor %}
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for post in posts %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h5>
+            <p class="card-text">{{ post.description|truncatewords:50 }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <p class="text-muted mb-0">
+                <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a>
+                | Category: {{ post.category }}
+              </p>
+            </div>
+          </div>
         </div>
-    </div>
-<a href=""></a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock content %}
 
-
 {% block script %}
-
-
 {% endblock script %}

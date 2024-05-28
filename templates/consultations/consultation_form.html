@@ -1,44 +1,70 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
 
 {% block content %}
-    <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Consultation</h1>
-    <form method="post" enctype="multipart/form-data" id="consultation-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center">{% if form.instance.pk %}Update{% else %}Create{% endif %} Consultation</h1>
+        </div>
+        <div class="card-body">
+          <form method="post" enctype="multipart/form-data" id="consultation-form">
+            {% csrf_token %}
+            {{ form.as_p }} 
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
 
 {% block script %}
 <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+<script>
+  $(document) { 
+    // Initialize CKEditor for description field (adjust selector if needed)
+    ClassicEditor
+      .create( document.querySelector( '#id_description' ) )
+      .catch( error => {
+          console.error( error );
+      } );
 
-    <script>
-        $(document).ready(function() {
-            $('#consultation-form').submit(function(event) {
-                event.preventDefault();
-                var url = $(this).attr('action');
-                var formData = new FormData(this);
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false, 
-                    success: function(data) {
-                        if (data.success) {
-                            alert('Consultation saved successfully!');
-                            window.location.href = "{% url 'user_consultation_list' %}"; 
-                        } else {
-                            alert('Error saving consultation');
-                        }
-                    },
-                    error: function() {
-                        alert('Error saving consultation');
-                    }
-                });
-            });
-        });
-    </script>
+
+    $('#consultation-form').submit(function(event) {
+      event.preventDefault();
+      var url = $(this).attr('action');
+      var formData = new FormData(this);
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          if (data.success) {
+            // Use Bootstrap's alert component for success message
+            $('#consultation-form').prepend('<div class="alert alert-success alert-dismissible fade show" role="alert">Consultation saved successfully!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            window.location.href = "{% url 'user_consultation_list' %}";
+            // Redirect after a short delay (adjust as needed)
+            setTimeout(function() {
+              window.location.href = "{% url 'user_consultation_list' %}";
+            }, 2000); 
+          } else {
+            alert('Error saving consultation: ' + data.error); 
+          }
+        },
+        error: function() {
+          alert('An error occurred while saving the consultation.');
+        }
+      });
+    });
+  });
+</script>
 {% endblock script %}

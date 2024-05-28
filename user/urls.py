@@ -11,7 +11,6 @@ from .views import (
 
 
 urlpatterns = [
-    path("doctor/home", doctorHomeView, name="doctor_home"),
     path('doctor/create/', createDoctor, name='doctor_create'),
     path('user/<str:uname>/', userProfile, name='profile'),
     path('logout/', Logout, name="logout"),

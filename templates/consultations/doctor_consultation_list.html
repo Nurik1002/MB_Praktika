@@ -2,13 +2,24 @@
 {% load static %}
 
 {% block content %}
-    <h1>Consultations</h1>
-    <ul>
+<div class="container mt-5"> 
+  <div class="row justify-content-center">
+    <div class="col-md-8"> 
+      <h1 class="mb-4">Consultations</h1>
+      {% if consultations %}
+      <ul class="list-group">
         {% for consultation in consultations %}
-            <li>
-               <a href="{% url 'consultion_detail' pk=consultation.id %}">{{ consultation.title }} {{ consultation.user }}</a>                                
-            </li>
+          <li class="list-group-item">
+            <a href="{% url 'consultion_detail' pk=consultation.id %}" class="text-decoration-none"> 
+              <strong>{{ consultation.title }}</strong> - {{ consultation.user }}
+            </a>
+          </li>
         {% endfor %}
-    </ul>
-    <a href="{% url 'create_consultation' %}">Create Consultation</a>
+      </ul>
+      {% else %}
+        <p class="card-text">There are no consultations available at the moment.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock content %}

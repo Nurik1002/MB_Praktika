@@ -1,18 +1,39 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Doctor profile{% endblock title %}
+
+{% block title %}Doctor Profile{% endblock title %}
 
 {% block content %}
-    <div>
-        <h1>Doctor profile</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      {% if user.is_authenticated and user.is_doctor %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4 text-center">
+              {% if user.photo %}
+                <img src="{{ user.photo.url }}" class="rounded-circle img-fluid" alt="Profile Picture">
+              {% else %}
+                <img src="{% static 'images/default-profile.png' %}" class="rounded-circle img-fluid" alt="Default Profile Picture">
+              {% endif %}
+            </div>
+            <div class="col-md-8">
+              <h2 class="card-title">Dr. {{ user.first_name }} {{ user.last_name }}</h2>
+              <p><strong>Username:</strong> {{ user.username }}</p>
+              <p><strong>Specialization:</strong> {{ doctor.specialist }}</p> 
+              <p><strong>Contact:</strong> {{ user.phone_number }}</p>
+              <p><strong>Telegram:</strong> {{ doctor.telegram_username }}</p>
+              <p><strong>Work Address:</strong> {{doctor.work_address }}</p>
+              <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+        <p class="card-text">You need to be logged in as a doctor to view this page.</p>
+      {% endif %}
     </div>
-
-    {% if user.is_authenticated %}
-    <h1> {{ user.username }} </h1>
-    <br>
-    <h5>{{ user.last_name }} {{ user.first_name }}</h5>
-    <br>
-    
-    {% endif %}
-
+  </div>
+</div>
 {% endblock content %}
