@@ -37,7 +37,8 @@ def create_consultation(request):
             consultation = form.save(commit=False)
             consultation.user = request.user
             consultation.save()
-            return JsonResponse({'success': True})
+            return redirect('user_consultation_list')
+            # return JsonResponse({'success': True})
     else:
         form = ConsultationForm()
     return render(request, "consultations/consultation_form.html", {'form': form})
@@ -54,7 +55,8 @@ def answer_consultation(request, pk):
             doctor = Doctor.objects.get(user = request.user)
             answer.doctor=doctor
             answer.save()
-            return JsonResponse({'success': True})
+            return redirect(doctor_consultation_list)
+            #
     else:
         form = ConsultationAnswerForm()
         consultation = Consultation.objects.get(id=pk)

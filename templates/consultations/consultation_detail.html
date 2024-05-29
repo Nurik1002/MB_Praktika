@@ -19,6 +19,17 @@
           {% if user.is_doctor %}
             <br>
             <a href="{% url 'answer_consultation' consultations.id %}" class="btn btn-primary">Answer</a>
+            {% if answers %}
+              <h5 class="mt-4">Answers:</h5>
+              {% for answer in answers %}
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <p class="card-text"><strong>Diagnosis:</strong> {{ answer.diagnosis }}</p>
+                    <p class="card-text"><strong>Recommendation:</strong> {{ answer.recommendation }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+              {% endif %}
           {% else %}
             {% if answers %}
               <h5 class="mt-4">Answers:</h5>

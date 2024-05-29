@@ -49,10 +49,10 @@
         contentType: false,
         success: function(data) {
           if (data.success) {
-            // Use Bootstrap's alert component for success message
+           
             $('#consultation-form').prepend('<div class="alert alert-success alert-dismissible fade show" role="alert">Consultation saved successfully!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
             window.location.href = "{% url 'user_consultation_list' %}";
-            // Redirect after a short delay (adjust as needed)
+            
             setTimeout(function() {
               window.location.href = "{% url 'user_consultation_list' %}";
             }, 2000); 

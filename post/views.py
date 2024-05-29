@@ -24,12 +24,15 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return JsonResponse({'success': True})
+            return redirect('home')
+            
     else:
         
         form = PostForm()
         context['form'] = form
     return render(request, 'post/create_post.html', context=context)
+
+
 
 @login_required(login_url='login')
 def post_comment_list(request):
