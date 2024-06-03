@@ -21,11 +21,11 @@
         <div class="card h-100 shadow-sm">
           <div class="card-body">
             <h5 class="card-title"><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h5>
-            <p class="card-text">{{ post.description|truncatewords:50 }}</p>
+            <p class="card-text">{{ post.description }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <p class="text-muted mb-0">
                 <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a>
-                | Category: {{ post.category }}
+                |  {{ post.category }} | {{ post.created }} 
               </p>
             </div>
           </div>
@@ -37,4 +37,5 @@
 {% endblock content %}
 
 {% block script %}
+
 {% endblock script %}
