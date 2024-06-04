@@ -17,7 +17,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100, verbose_name="Title")
-    description = RichTextField(null=True, blank=True,     config_name="special", external_plugin_resources=[(    'youtube', '/static/shareledge/ckeditor-plugins/youtube/youtube/', 'plugin.js',    )])
+    description = RichTextField(null=True, blank=True,     config_name="default")
     author = models.ForeignKey(CustomUser, verbose_name="Author", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, verbose_name="Category", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Created time")

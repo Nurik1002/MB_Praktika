@@ -1,4 +1,10 @@
 {% load static %}
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+<script>window.CKEDITOR_BASEPATH = '/my_static/ckeditor/ckeditor/';</script>
+{{ block.super }}
+{% endblock %}
 
 <!DOCTYPE html>
 <html lang="en">
