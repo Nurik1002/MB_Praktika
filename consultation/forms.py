@@ -2,6 +2,7 @@ from django import forms
 from ckeditor.fields import RichTextFormField
 from .models import Consultation, ConsultationAnswer
 from user.models import CustomUser, Doctor
+from django.contrib import admin
 
 
 class ConsultationForm(forms.ModelForm):

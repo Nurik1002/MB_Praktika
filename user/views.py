@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from post.models import Post
-
+from django.contrib import admin  
 from .models import CustomUser, Administrator,  Doctor
 from .forms import EditCustomUser
 

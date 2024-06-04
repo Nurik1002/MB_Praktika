@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Consultation, ConsultationAnswer
 from .forms import ConsultationForm, ConsultationAnswerForm
 from user.models import CustomUser, Doctor
-
+from django.contrib import admin  
 @login_required(login_url='login')
 def doctor_consultation_list(request):
     context = dict()

@@ -7,11 +7,7 @@ class Consultation(models.Model):
     title = models.CharField(max_length=500, verbose_name="Title")
     photo = models.ImageField(upload_to="consultation", blank=False, null=True, verbose_name="Photo")
     files = models.FileField(upload_to="files", blank=False, null=True, verbose_name="Files")
-    description = RichTextField(null=True, blank=True, 
-        config_name="special", 
-        external_plugin_resources=[(
-        'youtube', '/static/shareledge/ckeditor-plugins/youtube/youtube/', 'plugin.js',
-    )])
+    description = RichTextField(null=True, blank=True,    config_name="default", )
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Patient")
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, verbose_name="Doctor") 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
@@ -27,11 +23,7 @@ class Consultation(models.Model):
 class ConsultationAnswer(models.Model):
     consultation = models.ForeignKey(Consultation, on_delete=models.CASCADE, verbose_name="Consultation")
     diagnosis = models.CharField(max_length= 500, verbose_name="Diagnosis", blank=True, null=False)
-    recommendation = RichTextField(null=True, blank=True, 
-        config_name="special", 
-        external_plugin_resources=[(
-        'youtube', '/static/shareledge/ckeditor-plugins/youtube/youtube/', 'plugin.js',
-    )])
+    recommendation = RichTextField(null=True, blank=True,         config_name="default", )
     
     def __str__(self):
         return f" {self.consultation.title} {self.consultation.doctor.id} " 

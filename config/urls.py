@@ -4,16 +4,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('admin/', admin.site.urls),
+    path('', include('user.urls')),  
     path('images/', include('image_filters.urls')),
     path("ailabs/", include('ailab.urls')),
     path('posts/', include('post.urls')),
     path('ajax/', include('ajax.urls')),
     path('consultation/', include("consultation.urls")),
-    path('', include('user.urls')),
-    path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:

@@ -114,26 +114,28 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = str(BASE_DIR/'staticfiles')
-STATICFILES_STORAGE = 'django.contrib.staticfiels.storage.StaticFilesStorage'
+STATICFILES_STORAGE  = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 
 LOGIN_URL = 'login'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
-CKEDITOR_RESTRICT_BY_USER = True
-CKEDITOR_BASEPATH = "/staticfiles/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_RESTRICT_BY_USER = True
+
+CKEDITOR_BASEPATH = "staticfiles/ckeditor/ckeditor/"
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
         'height': 400,
         'width': 400,
     },
+    
 }

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.conf import settings
+from django.contrib import admin  
 import os
 
 from .models import Image

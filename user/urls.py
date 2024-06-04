@@ -11,10 +11,11 @@ from .views import (
 
 
 urlpatterns = [
+    path("", homeView, name="home"),
     path('doctor/create/', createDoctor, name='doctor_create'),
     path('user/<str:uname>/', userProfile, name='profile'),
     path('logout/', Logout, name="logout"),
     path("login/", userLoginView, name="login" ),
     path("user/create", userCreateView, name="user_create"),
-    path("", homeView, name="home"),
+    
 ]

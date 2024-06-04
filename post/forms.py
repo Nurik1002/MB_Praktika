@@ -1,5 +1,6 @@
 from django import forms 
 from ckeditor.fields import RichTextFormField
+from django.contrib import admin
 
 from .models import Category, Post, PostComment
 

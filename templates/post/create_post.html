@@ -8,16 +8,17 @@
         <h1>Create new post</h1>
         <form action="" method="POST" id="post-form">
             {% csrf_token %}
+            {{ form.media }}
             {{ form.as_p }}
-    
+            
             <button type="submit">Create</button>
         </form>
     </div>
 {% endblock content %}
 
 {% block script %}
-
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>        
 
 <script>
