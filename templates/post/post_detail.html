@@ -9,7 +9,7 @@
             <h1>{{ post.title }}</h1>
         </div>
         <div>
-            <p>{{ post.description }}</p>
+            <p>{{ post.description|safe }}</p>
         </div>
             <div>
                 </a> Author :  <a href="{% url 'profile' post.author.username  %}"> {{ post.author.username }} </a>

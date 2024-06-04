@@ -25,7 +25,7 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <p class="card-text"><strong>Diagnosis:</strong> {{ answer.diagnosis }}</p>
-                    <p class="card-text"><strong>Recommendation:</strong> {{ answer.recommendation }}</p>
+                    <p class="card-text"><strong>Recommendation:</strong> <br>{{ answer.recommendation|safe }}</p>
                   </div>
                 </div>
               {% endfor %}

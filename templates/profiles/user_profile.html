@@ -10,22 +10,25 @@
       <div class="card mb-3">
         <div class="card-body">
           {% if user.is_authenticated %} 
+
             <div class="row">
               <div class="col-md-4 text-center">
                 {% if user.photo %}
-                  <img src="{{ user.photo.url }}" class="rounded-circle img-fluid" alt="Profile Picture">
+                  <img src="{{ myuser.photo.url }}" class="rounded-circle img-fluid" alt="Profile Picture">
                 {% else %}
                   <img src="{% static 'images/default-profile.png' %}"  class="rounded-circle img-fluid" alt="Default Profile Picture"> 
                 {% endif %}
               </div>
               <div class="col-md-8">
-                <h2 class="card-title">Welcome, {{ user.username }}!</h2>
-                <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-                <p><strong>Country:</strong> {{ user.country }}</p>
-                <p><strong>State:</strong> {{ user.state }}</p>
-                <p><strong>City:</strong> {{ user.city }}</p>
-                <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+                <h2 class="card-title">Welcome, {{ myuser.username }}!</h2>
+                <p><strong>Name:</strong> {{ myuser.first_name }} {{ user.last_name }}</p>
+                <p><strong>Country:</strong> {{ myuser.country }}</p>
+                <p><strong>State:</strong> {{ myuser.state }}</p>
+                <p><strong>City:</strong> {{ myuser.city }}</p>
+                <p><strong>Phone Number:</strong> {{ myuser.phone_number }}</p>
+                {% if user.id == myuser.id %}
                 <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                {% endif %}
               </div>
             </div>
           {% else %} <div class="container mt-5">

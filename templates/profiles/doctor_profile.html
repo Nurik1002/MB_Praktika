@@ -7,25 +7,27 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      {% if user.is_authenticated and user.is_doctor %}
+      {% if user.is_authenticated  %}
       <div class="card mb-3">
         <div class="card-body">
           <div class="row">
             <div class="col-md-4 text-center">
               {% if user.photo %}
-                <img src="{{ user.photo.url }}" class="rounded-circle img-fluid" alt="Profile Picture">
+                <img src="{{ myuser.photo.url }}" class="rounded-circle img-fluid" alt="Profile Picture">
               {% else %}
                 <img src="{% static 'images/default-profile.png' %}" class="rounded-circle img-fluid" alt="Default Profile Picture">
               {% endif %}
             </div>
             <div class="col-md-8">
-              <h2 class="card-title">Dr. {{ user.first_name }} {{ user.last_name }}</h2>
-              <p><strong>Username:</strong> {{ user.username }}</p>
+              <h2 class="card-title">Dr. {{ myuser.first_name }} {{ user.last_name }}</h2>
+              <p><strong>Username:</strong> {{ myuser.username }}</p>
               <p><strong>Specialization:</strong> {{ doctor.specialist }}</p> 
-              <p><strong>Contact:</strong> {{ user.phone_number }}</p>
+              <p><strong>Contact:</strong> {{ myuser.phone_number }}</p>
               <p><strong>Telegram:</strong> {{ doctor.telegram_username }}</p>
               <p><strong>Work Address:</strong> {{doctor.work_address }}</p>
+              {% if user.id == myuser.id %}
               <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+              {% endif %}
             </div>
           </div>
         </div>

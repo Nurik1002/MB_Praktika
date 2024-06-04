@@ -120,7 +120,7 @@ def createDoctor(request):
 def userProfile(request, uname):
     context = {}
     user = CustomUser.objects.get(username=uname)
-    context["user"] = user
+    context["myuser"] = user
     
     if user.is_superuser and user.is_active :
         return render (request, "profiles/admin_profile.html", context=context) 
