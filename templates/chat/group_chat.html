@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ group.name }}</h1>
+
+  <div id="chat-container">
+    {% for message in messages %}
+      <div class="message {% if message.sender == user %}sent{% else %}received{% endif %}">
+        <span class="sender">{{ message.sender.username }}</span>
+        <span class="text">{{ message.text }}</span>
+        <span class="timestamp">{{ message.created_at|date:"H:i:s" }}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  <form id="message-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    const chatId = {{ chat.id }};
+    const lastReadTime = new Date(); // Adjust this to get the last read time
+
+    function getMessages() {
+      $.ajax({
+        url: '/chat/get_messages/' + chatId + '?last_read_time=' + lastReadTime.toISOString(),
+        method: 'GET',
+        success: function(data) {
+          if (data.messages.length > 0) {
+            $.each(data.messages, function(index, message) {
+              const messageDiv = $('<div class="message ' + (message.sender === '{{ user.username }}' ? 'sent' : 'received') + '">');
+              messageDiv.append('<span class="sender">' + message.sender + '</span>');
+              messageDiv.append('<span class="text">' + message.text + '</span>');
+              messageDiv.append('<span class="timestamp">' + message.created_at + '</span>');
+              $('#chat-container').append(messageDiv);
+            });
+          }
+          setTimeout(getMessages, 2000); // Check for new messages every 2 seconds
+        }
+      });
+    }
+
+    $(document).ready(function() {
+      getMessages();
+      $('#message-form').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: '/chat/group_chat/{{ group.id }}/',
+          method: 'POST',
+          data: $(this).serialize(),
+          success: function(data) {
+            const messageDiv = $('<div class="message sent">');
+            messageDiv.append('<span class="sender">{{ user.username }}</span>');
+            messageDiv.append('<span class="text">' + data.message + '</span>');
+            messageDiv.append('<span class="timestamp">' + data.created_at + '</span>');
+            $('#chat-container').append(messageDiv);
+            $('#message-form')[0].reset(); // Clear the form
+          },
+          error: function(error) {
+            console.error(error);
+          }
+        });
+      });
+    });
+  </script>
+
+{% endblock %}

@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path("chat/", include('chat.urls')),
     path('admin/', admin.site.urls),
     path('', include('user.urls')),  
     path('images/', include('image_filters.urls')),

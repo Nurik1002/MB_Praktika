@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<style>
+    .chat-app {
+    display: flex;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.chat-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Styling for chat list items and messages (customize as needed) */
+#chat-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#chat-messages .message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#chat-messages .message.sent {
+    background-color: #dcf8c6;
+    text-align: right;
+}
+
+#chat-messages .message.received {
+    background-color: #fff;
+    text-align: left;
+}
+</style>
+{% endblock head %}     
+
+{% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="chat-app">
+        <div class="sidebar">
+            <h2>Chats</h2>
+            <ul id="chat-list">
+                {% for chat in private_chats %}
+                    <li data-chat-id="{{ chat.id }}" class="chat-item">
+                        <span class="chat-name">{{ chat.members.exclude(pk=user.pk).first.username }}</span>
+                        <span class="last-message">{{ chat.last_message.text|truncatechars:30 }}</span> 
+                    </li>
+                {% endfor %}
+                {% for group in group_chats %}
+                    <li data-chat-id="{{ group.id }}" class="chat-item">
+                        <span class="chat-name">{{ group.name }}</span>
+                        <span class="last-message">{{ group.last_message.text|truncatechars:30 }}</span> 
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="chat-content">
+            <div class="chat-header">
+                <h3 id="chat-title"></h3>
+            </div>
+            <div id="chat-messages">
+                <!-- Chat messages will be added here -->
+            </div>
+            <div class="chat-input">
+                <form id="message-form">
+                    {% csrf_token %}
+                    <input type="text" id="message-input" placeholder="Type a message...">
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       $(document).ready(function() {
+    // Load chat list on page load
+    loadChatList();
+
+    // Handle message form submission
+    $('#message-form').submit(function(event) {
+        event.preventDefault();
+        const messageInput = $('#message-input');
+        const messageText = messageInput.val();
+        if (messageText.trim() !== '') {
+            sendMessage(messageText);
+            messageInput.val(''); // Clear input field
+        }
+    });
+
+    // Handle chat item clicks
+    $('.chat-item').click(function() {
+        const chatId = $(this).data('chat-id');
+        loadChatMessages(chatId);
+        $('#chat-title').text($(this).find('.chat-name').text());
+    });
+});
+
+function loadChatList() {
+    // Fetch chat list data (using Ajax) and dynamically add chat items to #chat-list
+    $.ajax({
+        url: '/chat/get_chat_list/', // Create this view in your views.py
+        method: 'GET',
+        success: function(data) {
+            $('#chat-list').html('');
+            $.each(data.chats, function(index, chat) {
+                const chatItem = $('<li>');
+                chatItem.data('chat-id', chat.id);
+                chatItem.addClass('chat-item');
+                chatItem.append('<span class="chat-name">' + chat.name + '</span>');
+                // Add other chat details (last message, timestamp, unread count) as needed
+                $('#chat-list').append(chatItem);
+            });
+        }
+    });
+}
+
+function loadChatMessages(chatId) {
+    // Fetch messages for a specific chat (using Ajax) and add them to #chat-messages
+    $.ajax({
+        url: '/chat/get_messages/' + chatId, // Update to your 'get_messages' view
+        method: 'GET',
+        success: function(data) {
+            $('#chat-messages').html('');
+            $.each(data.messages, function(index, message) {
+                const messageDiv = $('<div class="message ' + (message.sender === '{{ user.username }}' ? 'sent' : 'received') + '">');
+                messageDiv.text(message.text);
+                // Add other message details (timestamp) as needed
+                $('#chat-messages').append(messageDiv);
+            });
+        }
+    });
+}
+
+function sendMessage(messageText) {
+    // Send message to server (using Ajax)
+    $.ajax({
+        url: '/chat/send_message/', // Create this view in your views.py
+        method: 'POST',
+        data: { 'chat_id': currentChatId, 'message': messageText },
+        success: function(data) {
+            // Add the sent message to #chat-messages
+            const messageDiv = $('<div class="message sent">');
+            messageDiv.text(messageText);
+            // Add other message details (timestamp) as needed
+            $('#chat-messages').append(messageDiv);
+        }
+    });
+}
+    </script>
+{% endblock %}

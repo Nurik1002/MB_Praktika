@@ -21,20 +21,24 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'ckeditor',
-    'ckeditor_uploader',
-    'image_filters',
-    'ailab',
-    'post',
-    'ajax',
-    'consultation', 
-    'user',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # INSTALLED_APPS
+    'ckeditor',
+    'ckeditor_uploader',
+    # CUSTOM_APPS
+    'chat',
+    'image_filters',
+    'ailab',
+    'post',
+    'ajax',
+    'consultation', 
+    'user',
 ]
 
 AUTH_USER_MODEL = 'user.CustomUser'

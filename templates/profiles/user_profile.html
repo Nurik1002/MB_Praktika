@@ -28,6 +28,10 @@
                 <p><strong>Phone Number:</strong> {{ myuser.phone_number }}</p>
                 {% if user.id == myuser.id %}
                 <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                {% else %}
+                <a href="{% url 'private-chat' myuser.id %}" class="btn btn-primary">
+                  Start Private Chat
+              </a>
                 {% endif %}
               </div>
             </div>
